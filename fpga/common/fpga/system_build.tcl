@@ -81,5 +81,6 @@ write_sysdef -force -hwdef ${design}.hwdef -bitfile ${design}.bit -file ${design
 ###########################################################
 # EXPORT HARDWARE
 ###########################################################
+file mkdir $projdir/${design}.sdk
 file copy -force $projdir/${design}.runs/impl_1/${design}_wrapper.sysdef $projdir/${design}.sdk/${design}_wrapper.hdf
 

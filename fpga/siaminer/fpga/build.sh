@@ -9,10 +9,10 @@ vivado -mode batch -source package.tcl
 #create bit stream
 vivado -mode batch -source run.tcl
 
-#build fsbl FIXME: used xsdk instead, which is more powerful
-hsi -mode batch -source fsbl.tcl
+#build fsbl
+#xsdk -batch -source fsbl.tcl
 
-#xilinx stuff...
-bootgen -image bit2bin.bif -split bin 
-cp system_wrapper.bit.bin parallella.bit.bin
+##xilinx stuff...
+#bootgen -image bit2bin.bif -split bin 
+#cp system_wrapper.bit.bin parallella.bit.bin
 
