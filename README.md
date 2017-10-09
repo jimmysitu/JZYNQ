@@ -3,11 +3,11 @@
 ```bash
 git submodule update --init --recursive
 ```
-## fpga
+## Build FPGA
 - PL design, synthesis script, fsbl
 
-
-## dtc
+## Prepare Utility
+### dtc
 - Device Tree compiler (required to build U-Boot)
 - Compile command
 ```bash
@@ -20,23 +20,46 @@ make
 export PATH=`pwd`:$PATH
 ```
 
-## u-boot-xlnx
+### u-boot-xlnx
 - The u-boot bootloader with Xilinx patches and drivers
 - Compile command
 ```bash
-CROSS_COMPILE=arm-xilinx-linux-gnueabi-
-export CROSS_COMPILE
+export CROSS_COMPILE=arm-xilinx-linux-gnueabi-
+sudo apt-get install libssl-dev
 make zynq_zed_defconfig
 make all
 ```
 
-## device-tree-xlnx
+### device-tree-xlnx
 - Device Tree generator plugin for xsdk
 
-
-## linux-xlnx
+## Build Linux Kernel
+### linux-xlnx
 - The Linux kernel with Xilinx patches and drivers
+```bash
+export PATH=$PATH:/cad/Xilinx/SDK/2015.2/gnu/arm/lin/bin
+export PATH=$PATH:$PWD/../u-boot-xlnx
+make ARCH=arm UIMAGE_LOADADDR=0x8000 uImage
+```
 
-
-
+## Build and Modify a Rootfs
+- Build command
+```bash
+mkdir build
+cp arm_ramdisk.image.org.gz arm_ramdisk.image.gz
+gunzip arm_ramdisk.image.gz
+chmod u+rwx ramdisk.image
+mkdir ./mntRamdisk
+sudo mount -o loop arm_ramdisk.image ./mntRamdisk
+sudo rm -rf ./mntRamdisk/lib/modules
+export PATH=$PATH:/cad/Xilinx/SDK/2015.2/gnu/arm/lin/bin
+export PATH=$PATH:$PWD/../u-boot-xlnx
+export CROSS_COMPILE=arm-xilinx-linux-gnueabi-
+export INSTALL_MOD_PATH=${PWD}/mntRamdisk
+make ARCH=arm modules -C linux-xlnx
+sudo make modules_install -C linux-xlnx
+sudo umount ./mntRamdisk
+gzip arm_ramdisk.image
+./u-boot-xlnx/tools/mkimage -A arm -T ramdisk -C gzip -d arm_ramdisk.image.gz ./build/uramdisk.image.gz
+```
 
