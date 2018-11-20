@@ -10,7 +10,7 @@ vivado -mode batch -source package.tcl
 vivado -mode batch -source run.tcl
 
 #build fsbl
-#xsdk -batch -source fsbl.tcl
+xsdk -batch -source fsbl.tcl
 
 ##xilinx stuff...
 #bootgen -image bit2bin.bif -split bin 

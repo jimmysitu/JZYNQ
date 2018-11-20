@@ -24,6 +24,7 @@ export PATH=`pwd`:$PATH
 - The u-boot bootloader with Xilinx patches and drivers
 - Compile command
 ```bash
+sudo apt-get install libssl-dev
 CROSS_COMPILE=arm-xilinx-linux-gnueabi-
 export CROSS_COMPILE
 make zynq_zed_defconfig
