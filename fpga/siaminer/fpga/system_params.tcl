@@ -2,7 +2,7 @@ set_property verilog_define CLK20M [current_fileset]
 
 # Create 'synth_1' run (if not found)
 if {[string equal [get_runs -quiet synth_1] ""]} {
-  create_run -name synth_1 -part xc7z020clg400-1 -flow {Vivado Synthesis 2015} -strategy "Flow_PerfOptimized_High" -constrset constrs_1
+  create_run -name synth_1 -part xc7z020clg400-2 -flow {Vivado Synthesis 2015} -strategy "Flow_PerfOptimized_High" -constrset constrs_1
 } else {
   set_property strategy "Flow_PerfOptimized_High" [get_runs synth_1]
   set_property flow "Vivado Synthesis 2015" [get_runs synth_1]
@@ -22,9 +22,9 @@ current_run -synthesis [get_runs synth_1]
 
 # Create 'impl_1' run (if not found)
 if {[string equal [get_runs -quiet impl_1] ""]} {
-  #create_run -name impl_1 -part xc7z020clg400-1 -flow {Vivado Implementation 2015} -strategy "Performance_ExplorePostRoutePhysOpt" -constrset constrs_1 -parent_run synth_1
-  create_run -name impl_1 -part xc7z020clg400-1 -flow {Vivado Implementation 2015} -strategy "Performance_Explore" -constrset constrs_1 -parent_run synth_1
-  #create_run -name impl_1 -part xc7z020clg400-1 -flow {Vivado Implementation 2015} -strategy "Flow_Quick" -constrset constrs_1 -parent_run synth_1
+  #create_run -name impl_1 -part xc7z020clg400-2 -flow {Vivado Implementation 2015} -strategy "Performance_ExplorePostRoutePhysOpt" -constrset constrs_1 -parent_run synth_1
+  create_run -name impl_1 -part xc7z020clg400-2 -flow {Vivado Implementation 2015} -strategy "Performance_Explore" -constrset constrs_1 -parent_run synth_1
+  #create_run -name impl_1 -part xc7z020clg400-2 -flow {Vivado Implementation 2015} -strategy "Flow_Quick" -constrset constrs_1 -parent_run synth_1
 } else {
   #set_property strategy "Performance_ExplorePostRoutePhysOpt" [get_runs impl_1]
   set_property strategy "Performance_Explore" [get_runs impl_1]

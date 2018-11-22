@@ -1,7 +1,7 @@
 ###########################################################
 # Create Managed IP Project
 ###########################################################
-create_project -force $design $projdir -part $partname 
+create_project -force $design $projdir -part $partname
 set_property target_language Verilog [current_project]
 set_property source_mgmt_mode None [current_project]
 set_property verilog_define CFG_ASIC=0 [current_fileset]
@@ -29,7 +29,6 @@ if {[llength $constraints_files] != 0} {
 
 #ADDING IP
 if {[llength $ip_files] != 0} {
-    
     #Add to fileset
     add_files -norecurse -fileset [get_filesets sources_1] $ip_files
 
@@ -38,7 +37,7 @@ if {[llength $ip_files] != 0} {
 	#TODO: is this needed?
 	set file_obj [get_files -of_objects [get_filesets sources_1] $file]
 	set_property "synth_checkpoint_mode" "Singular" $file_obj
-    }    
+    }
     #RERUN/UPGRADE IP
     upgrade_ip [get_ips]
 }
@@ -72,7 +71,7 @@ ipx::add_memory_map {s_axi} [ipx::current_core]
 set_property vendor              {www.jimmystone.cn}    [ipx::current_core]
 set_property library             {user}                 [ipx::current_core]
 set_property taxonomy            {{/Siaminer}}          [ipx::current_core]
-set_property vendor_display_name {ADAPTEVA}             [ipx::current_core]
+set_property vendor_display_name {JMST}                 [ipx::current_core]
 set_property company_url         {www.jimmystone.cn}    [ipx::current_core]
 set_property supported_families  { \
 					 {virtex7}    {Production} \
